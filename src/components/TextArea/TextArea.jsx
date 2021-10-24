@@ -6,19 +6,21 @@ const StyledTextInput = styled.TextInput`
   background: white;
   margin: 16px;
   padding: 16px;
-  border: 2px solid palevioletred;
+  border: 2px solid
+    ${(props) => (props.positive ? 'lightgreen' : 'palevioletred')};
   border-radius: 10px;
   width: 90%;
   height: 70%;
 `
 
-function TextArea({ placeholder, value, onChangeText }) {
+function TextArea({ placeholder, value, onChangeText, positive }) {
   return (
     <StyledTextInput
       multiline={true}
       placeholder={placeholder}
       onChangeText={onChangeText}
       value={value}
+      positive={positive}
     />
   )
 }

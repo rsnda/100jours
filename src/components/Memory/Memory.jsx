@@ -2,22 +2,22 @@ import React from 'react'
 import styled from 'styled-components/native'
 import { Text } from 'react-native'
 
-const StyledButton = styled.Pressable`
+const MemoryBox = styled.Pressable`
   background: ${(props) => (props.positive ? 'lightgreen' : 'palevioletred')};
   justify-content: center;
   align-items: center;
-  width: 60%;
-  height: 7%;
+  width: 90%;
+  height: 15%;
   font-size: 21px;
-  margin: 16px;
+  margin: 4px;
   border: 2px solid
     ${(props) => (props.positive ? 'lightgreen' : 'palevioletred')};
   border-radius: 10px;
 `
 
-function Button({ onPress, positive, children }) {
+function Memory({ onPress, positive, memory }) {
   return (
-    <StyledButton
+    <MemoryBox
       positive={positive}
       onPress={onPress}
       style={({ pressed }) => [
@@ -26,8 +26,8 @@ function Button({ onPress, positive, children }) {
         },
       ]}
     >
-      <Text>{children}</Text>
-    </StyledButton>
+      <Text>{memory}</Text>
+    </MemoryBox>
   )
 }
-export default Button
+export default Memory
