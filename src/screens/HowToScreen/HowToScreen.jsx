@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 
 function HowToScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, padding: 20 }}>
       <Text>How To !</Text>
     </View>
   )

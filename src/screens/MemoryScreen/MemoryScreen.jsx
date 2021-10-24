@@ -1,12 +1,17 @@
-import * as React from 'react'
-import { Button, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { Button, Page, TextArea } from '../../components'
 
 function MemoryScreen({ navigation }) {
+  const [memory, setMemory] = useState()
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Memory !</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
+    <Page>
+      <TextArea
+        onChangeText={(text) => setMemory(text)}
+        value={memory}
+        placeholder="Type a memory here..."
+      />
+      <Button onPress={() => navigation.goBack()}>Add memory</Button>
+    </Page>
   )
 }
 
