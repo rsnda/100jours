@@ -1,26 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Page, TextArea } from '../../components'
+import { MemoriesContext } from '../../context/MemoriesContext'
 
 function MemoryScreen({ route, navigation }) {
-  const { index, memories, setMemories, isPositive } = route.params
-  const startMemory = index !== undefined ? memories[index] : ''
+  const { memories, addNewMemory, updateMemory } = useContext(MemoriesContext)
+  const { index, isPositive } = route?.params
+  const startMemory = index !== undefined ? memories[index].memory : ''
   const [memoryText, setMemoryText] = useState(startMemory)
 
+  console.log('memories : ', memories)
   const onButtonPress = () => {
-    let newMemories = []
-    if (index !== undefined) {
-      if (!!memoryText) {
-        memories.splice(index, 1, memoryText)
-      } else {
-        memories.splice(index, 1)
-      }
-      newMemories = [...memories]
+    if (index === undefined) {
+      addNewMemory(memoryText, isPositive)
     } else {
-      newMemories =
-        memoryText !== '' ? [...memories, memoryText] : [...memories]
+      updateMemory(memoryText, index + 1) // db id start a 1 not 0
     }
 
-    setMemories(newMemories)
     navigation.goBack()
   }
 

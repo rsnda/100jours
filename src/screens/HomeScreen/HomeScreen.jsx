@@ -1,66 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Button, Page, Memory } from '../../components'
+import { MemoriesContext } from '../../context/MemoriesContext'
 
 function HomeScreen({ navigation }) {
+  const { memories } = useContext(MemoriesContext)
   const [positiveMemories, setPositiveMemories] = useState([])
   const [negativeMemories, setNegativeMemories] = useState([])
+
   return (
     <Page>
-      {positiveMemories.map((memory, index) => {
-        return (
-          <Memory
-            key={index}
-            positive
-            onPress={() =>
-              navigation.navigate('Memory', {
-                index,
-                memories: positiveMemories,
-                setMemories: setPositiveMemories,
-                isPositive: true,
-              })
-            }
-            memory={memory}
-          />
-        )
-      })}
+      {!!memories
+        ? memories.map((memory, index) => {
+            return (
+              <Memory
+                key={index}
+                positive
+                onPress={() =>
+                  navigation.navigate('Memory', {
+                    index,
+                    isPositive: 1,
+                  })
+                }
+                memory={memory.memory}
+              />
+            )
+          })
+        : null}
 
       <Button
         positive
         onPress={() =>
           navigation.navigate('Memory', {
-            memories: positiveMemories,
-            setMemories: setPositiveMemories,
-            isPositive: true,
+            isPositive: 1,
           })
         }
       >
         Add a positive memory
       </Button>
 
-      {negativeMemories.map((memory, index) => {
-        return (
-          <Memory
-            key={index}
-            onPress={() =>
-              navigation.navigate('Memory', {
-                index,
-                memories: negativeMemories,
-                setMemories: setNegativeMemories,
-              })
-            }
-            memory={memory}
-          />
-        )
-      })}
-
-      <Button
-        onPress={() =>
-          navigation.navigate('Memory', {
-            memories: negativeMemories,
-            setMemories: setNegativeMemories,
+      {negativeMemories
+        ? negativeMemories.map((memory, index) => {
+            return (
+              <Memory
+                key={index}
+                onPress={() =>
+                  navigation.navigate('Memory', {
+                    index,
+                  })
+                }
+                memory={memory}
+              />
+            )
           })
-        }
-      >
+        : null}
+
+      <Button onPress={() => navigation.navigate('Memory', { isPositive: 0 })}>
         Add a negative memory
       </Button>
     </Page>
