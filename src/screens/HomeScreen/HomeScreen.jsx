@@ -3,14 +3,12 @@ import { Button, Page, Memory } from '../../components'
 import { MemoriesContext } from '../../context/MemoriesContext'
 
 function HomeScreen({ navigation }) {
-  const { memories } = useContext(MemoriesContext)
-  const [positiveMemories, setPositiveMemories] = useState([])
-  const [negativeMemories, setNegativeMemories] = useState([])
+  const { positiveMemories, negativeMemories } = useContext(MemoriesContext)
 
   return (
     <Page>
-      {!!memories
-        ? memories.map((memory, index) => {
+      {!!positiveMemories
+        ? positiveMemories.map((memory, index) => {
             return (
               <Memory
                 key={index}
@@ -48,7 +46,7 @@ function HomeScreen({ navigation }) {
                     index,
                   })
                 }
-                memory={memory}
+                memory={memory.memory}
               />
             )
           })

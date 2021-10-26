@@ -4,23 +4,6 @@ import * as SQLite from 'expo-sqlite'
 
 const db = SQLite.openDatabase('db.db')
 
-const getMemories = (setUserFunc) => {
-  db.transaction(
-    (tx) => {
-      tx.executeSql('select * from memories', [], (_, { rows: { _array } }) => {
-        setUserFunc(_array)
-      })
-    },
-    (t, error) => {
-      console.log('db error load memories')
-      console.log(error)
-    },
-    (_t, _success) => {
-      console.log('loaded memories')
-    }
-  )
-}
-
 const getPositiveMemories = (setUserFunc) => {
   db.transaction(
     (tx) => {
@@ -99,6 +82,21 @@ const updateMemory = (memory, id, successFunc) => {
   )
 }
 
+const deleteMemory = (id, successFunc) => {
+  db.transaction(
+    (tx) => {
+      tx.executeSql('delete from memories where id = (?)', [id])
+    },
+    (t, error) => {
+      console.log('db error updateMemory')
+      console.log(error)
+    },
+    (t, success) => {
+      successFunc()
+    }
+  )
+}
+
 const dropDatabaseTablesAsync = async () => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
@@ -142,6 +140,7 @@ export const database = {
   getNegativeMemories,
   insertMemory,
   updateMemory,
+  deleteMemory,
   setupDatabaseAsync,
   dropDatabaseTablesAsync,
 }

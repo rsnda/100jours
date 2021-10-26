@@ -23,11 +23,15 @@ export const MemoriesContextProvider = (props) => {
       ? refreshPositiveMemories
       : refreshNegativeMemories
     console.log('isPositive : ', isPositive)
-    return database.insertMemory(memory, isPositive, refreshPositiveMemories)
+    return database.insertMemory(memory, isPositive, refreshMemories)
   }
 
   const updateMemory = (memory, id) => {
     return database.updateMemory(memory, id, refreshMemories)
+  }
+
+  const deleteMemory = (id) => {
+    return database.deleteMemory(id, refreshMemories)
   }
 
   const refreshPositiveMemories = () => {
@@ -35,12 +39,12 @@ export const MemoriesContextProvider = (props) => {
   }
 
   const refreshNegativeMemories = () => {
-    return database.getPositiveMemories(setNegativeMemories)
+    return database.getNegativeMemories(setNegativeMemories)
   }
 
   const refreshMemories = () => {
-    refreshPositiveMemories()
     refreshNegativeMemories()
+    refreshPositiveMemories()
   }
 
   // Make the context object:
@@ -49,6 +53,7 @@ export const MemoriesContextProvider = (props) => {
     negativeMemories,
     addNewMemory,
     updateMemory,
+    deleteMemory,
   }
 
   // pass the value in provider and return
