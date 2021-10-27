@@ -1,6 +1,21 @@
 import React, { useState, useContext } from 'react'
+import { View } from 'react-native'
+import styled from 'styled-components'
 import { Button, Page, Memory } from '../../components'
 import { MemoriesContext } from '../../context/MemoriesContext'
+
+const BottomView = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+  position: absolute;
+  bottom: 5px;
+`
+
+const BottomViewButtonContainer = styled.View`
+  flex: 1;
+  padding: 2px;
+`
 
 function HomeScreen({ navigation }) {
   const { positiveMemories, negativeMemories } = useContext(MemoriesContext)
@@ -25,17 +40,6 @@ function HomeScreen({ navigation }) {
           })
         : null}
 
-      <Button
-        positive
-        onPress={() =>
-          navigation.navigate('Memory', {
-            isPositive: 1,
-          })
-        }
-      >
-        Add a positive memory
-      </Button>
-
       {negativeMemories
         ? negativeMemories.map((memory, index) => {
             return (
@@ -52,9 +56,27 @@ function HomeScreen({ navigation }) {
           })
         : null}
 
-      <Button onPress={() => navigation.navigate('Memory', { isPositive: 0 })}>
-        Add a negative memory
-      </Button>
+      <BottomView>
+        <BottomViewButtonContainer>
+          <Button
+            positive
+            onPress={() =>
+              navigation.navigate('Memory', {
+                isPositive: 1,
+              })
+            }
+          >
+            Add a positive memory
+          </Button>
+        </BottomViewButtonContainer>
+        <BottomViewButtonContainer>
+          <Button
+            onPress={() => navigation.navigate('Memory', { isPositive: 0 })}
+          >
+            Add a negative memory
+          </Button>
+        </BottomViewButtonContainer>
+      </BottomView>
     </Page>
   )
 }

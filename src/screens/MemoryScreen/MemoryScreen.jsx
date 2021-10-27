@@ -1,6 +1,12 @@
 import React, { useState, useContext } from 'react'
+import styled from 'styled-components'
 import { Button, Page, TextArea } from '../../components'
 import { MemoriesContext } from '../../context/MemoriesContext'
+
+const ButtonContainer = styled.View`
+  width: 200px;
+  height: 70px;
+`
 
 function MemoryScreen({ route, navigation }) {
   const {
@@ -10,6 +16,7 @@ function MemoryScreen({ route, navigation }) {
     updateMemory,
     deleteMemory,
   } = useContext(MemoriesContext)
+
   const { index, isPositive } = route.params
   const memories = isPositive ? positiveMemories : negativeMemories
   const startMemory = index !== undefined ? memories[index].memory : ''
@@ -17,9 +24,12 @@ function MemoryScreen({ route, navigation }) {
 
   console.log('positiveMemories : ', positiveMemories)
   console.log('negativeMemories : ', negativeMemories)
+
   const onButtonPress = () => {
     if (index === undefined) {
-      addNewMemory(memoryText, isPositive)
+      if (memoryText !== '') {
+        addNewMemory(memoryText, isPositive)
+      }
     } else {
       if (memoryText === '') {
         deleteMemory(memories[index].id)
@@ -41,9 +51,11 @@ function MemoryScreen({ route, navigation }) {
         value={memoryText}
         placeholder="Type a memory here..."
       />
-      <Button positive={isPositive} onPress={onButtonPress}>
-        Add memory
-      </Button>
+      <ButtonContainer>
+        <Button positive={isPositive} onPress={onButtonPress}>
+          Add memory
+        </Button>
+      </ButtonContainer>
     </Page>
   )
 }

@@ -4,12 +4,13 @@ import { Text } from 'react-native'
 
 const MemoryBox = styled.Pressable`
   background: ${(props) => (props.positive ? 'lightgreen' : 'palevioletred')};
-  justify-content: center;
-  align-items: center;
+
   width: 90%;
-  height: 15%;
+  height: auto;
+  min-height: 7%;
   font-size: 21px;
   margin: 4px;
+  padding: 10px;
   border: 2px solid
     ${(props) => (props.positive ? 'lightgreen' : 'palevioletred')};
   border-radius: 10px;

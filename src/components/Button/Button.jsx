@@ -6,10 +6,10 @@ const StyledButton = styled.Pressable`
   background: ${(props) => (props.positive ? 'lightgreen' : 'palevioletred')};
   justify-content: center;
   align-items: center;
-  width: 60%;
-  height: 7%;
+  width: 100%;
+  height: 100%;
   font-size: 21px;
-  margin: 16px;
+  padding: 16px;
   border: 2px solid
     ${(props) => (props.positive ? 'lightgreen' : 'palevioletred')};
   border-radius: 10px;
